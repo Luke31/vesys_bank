@@ -6,10 +6,10 @@
 package bank.local;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 import bank.InactiveException;
 import bank.OverdrawException;
@@ -42,13 +42,10 @@ public class Driver implements bank.BankDriver {
 		
 		@Override
 		public Set<String> getAccountNumbers() {
-			Set<String> activeAccountNumbers = new HashSet<>();
-			for(Account acc : accounts.values()){
-				if(acc.isActive())
-					activeAccountNumbers.add(acc.getNumber());
-			}
-			
-			return activeAccountNumbers;
+			return accounts.values().stream()
+				.filter(acc -> acc.isActive())
+				.map(acc -> acc.getNumber())
+				.collect(Collectors.toSet());
 		}
 
 		@Override
