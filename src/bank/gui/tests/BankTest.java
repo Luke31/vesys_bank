@@ -11,6 +11,9 @@ import bank.Bank;
 
 public interface BankTest {
 	String getName();
+
 	boolean isEnabled(int size);
-	void runTests(JFrame context, Bank bank, String currentAccountNumber) throws Exception;
+
+	void runTests(JFrame context, Bank bank, String currentAccountNumber)
+			throws Exception;
 }
