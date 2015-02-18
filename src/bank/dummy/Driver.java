@@ -5,6 +5,7 @@
 
 package bank.dummy;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -81,6 +82,7 @@ public class Driver implements BankDriver {
 		private String owner = "Dagobert Duck";
 		private String number = "DD-33-4499";
 		private double balance;
+		private boolean active = true;
 
 		@Override
 		public String getNumber() {
@@ -94,7 +96,7 @@ public class Driver implements BankDriver {
 
 		@Override
 		public boolean isActive() {
-			return true;
+			return active;
 		}
 
 		@Override
@@ -110,6 +112,12 @@ public class Driver implements BankDriver {
 		@Override
 		public double getBalance() {
 			return balance;
+		}
+
+		@Override
+		public boolean close() throws IOException {
+			active = false;
+			return true;
 		}
 	}
 
