@@ -64,8 +64,8 @@ public class Driver implements bank.BankDriver {
 		}
 
 		@Override
-		public void transfer(bank.Account from, bank.Account to, double amount)
-				throws IOException, InactiveException, OverdrawException {
+		public void transfer(bank.Account from, bank.Account to, double amount) throws IOException, InactiveException,
+				OverdrawException {
 			// TODO has to be implemented
 			System.out.println("Bank.transfer has to be implemented");
 		}
@@ -110,8 +110,7 @@ public class Driver implements bank.BankDriver {
 		}
 
 		@Override
-		public void withdraw(double amount) throws InactiveException,
-				OverdrawException {
+		public void withdraw(double amount) throws InactiveException, OverdrawException {
 			// TODO has to be implemented
 			System.out.println("Account.withdraw has to be implemented");
 		}

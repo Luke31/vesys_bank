@@ -28,8 +28,7 @@ public class EfficiencyTest implements BankTest {
 	}
 
 	@Override
-	public void runTests(JFrame context, Bank bank, String currentAccountNumber)
-			throws Exception {
+	public void runTests(JFrame context, Bank bank, String currentAccountNumber) throws Exception {
 		final Account acc = bank.getAccount(currentAccountNumber);
 
 		String msg;
@@ -41,14 +40,13 @@ public class EfficiencyTest implements BankTest {
 				acc.withdraw(i);
 			}
 			st = System.currentTimeMillis() - st;
-			msg = 2 * NUMBER_OF_EFF_TESTS + " operations in " + st / 1000.0
-					+ " Sek\n" + st / (2.0 * NUMBER_OF_EFF_TESTS) + " msec/op";
+			msg = 2 * NUMBER_OF_EFF_TESTS + " operations in " + st / 1000.0 + " Sek\n" + st / (2.0 * NUMBER_OF_EFF_TESTS)
+					+ " msec/op";
 		} catch (Exception e) {
 			msg = "test did throw an exception\n" + e.getMessage();
 		}
 
-		JOptionPane.showMessageDialog(context, msg, "Test Result",
-				JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(context, msg, "Test Result", JOptionPane.INFORMATION_MESSAGE);
 
 	}
 

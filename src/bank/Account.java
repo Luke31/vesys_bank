@@ -60,8 +60,7 @@ public interface Account {
 	 * @throws IOException
 	 *           if a remoting or communication problem occurs
 	 */
-	void deposit(double amount) throws IOException, IllegalArgumentException,
-			InactiveException;
+	void deposit(double amount) throws IOException, IllegalArgumentException, InactiveException;
 
 	/**
 	 * Withdraws the given amount from the account.
@@ -79,8 +78,7 @@ public interface Account {
 	 * @throws IOException
 	 *           if a remoting or communication problem occurs
 	 */
-	void withdraw(double amount) throws IOException, IllegalArgumentException,
-			OverdrawException, InactiveException;
+	void withdraw(double amount) throws IOException, IllegalArgumentException, OverdrawException, InactiveException;
 
 	/**
 	 * Returns the balance of the account. The balance of an account which has been closed is always zero. An

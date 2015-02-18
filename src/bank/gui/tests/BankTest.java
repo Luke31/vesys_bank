@@ -14,6 +14,5 @@ public interface BankTest {
 
 	boolean isEnabled(int size);
 
-	void runTests(JFrame context, Bank bank, String currentAccountNumber)
-			throws Exception;
+	void runTests(JFrame context, Bank bank, String currentAccountNumber) throws Exception;
 }

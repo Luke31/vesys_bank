@@ -100,21 +100,20 @@ public class BankGUI extends JFrame {
 		if (server instanceof BankDriver2) {
 			final AtomicBoolean refreshRegistered = new AtomicBoolean(false);
 			try {
-				((BankDriver2) server)
-						.registerUpdateHandler(new BankDriver2.UpdateHandler() {
-							@Override
-							public void accountChanged(String number) {
-								if (refreshRegistered.compareAndSet(false, true)) {
-									SwingUtilities.invokeLater(new Runnable() {
-										@Override
-										public void run() {
-											refreshRegistered.set(false);
-											refreshDialog();
-										}
-									});
+				((BankDriver2) server).registerUpdateHandler(new BankDriver2.UpdateHandler() {
+					@Override
+					public void accountChanged(String number) {
+						if (refreshRegistered.compareAndSet(false, true)) {
+							SwingUtilities.invokeLater(new Runnable() {
+								@Override
+								public void run() {
+									refreshRegistered.set(false);
+									refreshDialog();
 								}
-							}
-						});
+							});
+						}
+					}
+				});
 			} catch (IOException e1) {
 				throw new RuntimeException(e1);
 			}
@@ -308,8 +307,7 @@ public class BankGUI extends JFrame {
 			}
 
 			if (number == null) {
-				JOptionPane.showMessageDialog(this, "Account could not be created",
-						"Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Account could not be created", "Error", JOptionPane.ERROR_MESSAGE);
 			} else {
 				try {
 					Account acc = bank.getAccount(number);
@@ -323,14 +321,11 @@ public class BankGUI extends JFrame {
 						amount = Double.parseDouble(str);
 					acc.deposit(amount);
 				} catch (NumberFormatException e) {
-					JOptionPane.showMessageDialog(this, "Illegal Format", "Error",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Illegal Format", "Error", JOptionPane.ERROR_MESSAGE);
 				} catch (IllegalArgumentException e) {
-					JOptionPane.showMessageDialog(this, "Illegal Argument", "Error",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Illegal Argument", "Error", JOptionPane.ERROR_MESSAGE);
 				} catch (InactiveException e) {
-					JOptionPane.showMessageDialog(this, "Account is inactive", "Error",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Account is inactive", "Error", JOptionPane.ERROR_MESSAGE);
 				} catch (Exception e) {
 					error(e);
 				}
@@ -346,17 +341,15 @@ public class BankGUI extends JFrame {
 	public void closeAccount() {
 		String number = currentAccountNumber();
 		if (number != null) {
-			int res = JOptionPane.showConfirmDialog(this, "Really close account "
-					+ number + "?", "Confirm closing", JOptionPane.YES_NO_OPTION,
-					JOptionPane.QUESTION_MESSAGE);
+			int res = JOptionPane.showConfirmDialog(this, "Really close account " + number + "?", "Confirm closing",
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 			if (res == 0) {
 				try {
 					boolean done = bank.closeAccount(number);
 					if (done) {
 						refreshDialog();
 					} else {
-						JOptionPane.showMessageDialog(this, "Account could not be closed",
-								"Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(this, "Account could not be closed", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				} catch (Exception e) {
 					error(e);
@@ -368,8 +361,8 @@ public class BankGUI extends JFrame {
 	public void deposit() {
 		String number = currentAccountNumber();
 		if (number != null) {
-			String s = JOptionPane.showInputDialog(this, "Enter amount to deposit:",
-					"Deposit Money", JOptionPane.QUESTION_MESSAGE);
+			String s = JOptionPane.showInputDialog(this, "Enter amount to deposit:", "Deposit Money",
+					JOptionPane.QUESTION_MESSAGE);
 			if (s != null) {
 				try {
 					double amount = Double.parseDouble(s);
@@ -377,14 +370,11 @@ public class BankGUI extends JFrame {
 					a.deposit(amount);
 					fld_balance.setText(currencyFormat(a.getBalance()));
 				} catch (NumberFormatException e) {
-					JOptionPane.showMessageDialog(this, "Illegal Value", "Error",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Illegal Value", "Error", JOptionPane.ERROR_MESSAGE);
 				} catch (IllegalArgumentException e) {
-					JOptionPane.showMessageDialog(this, "Illegal Argument", "Error",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Illegal Argument", "Error", JOptionPane.ERROR_MESSAGE);
 				} catch (InactiveException e) {
-					JOptionPane.showMessageDialog(this, "Account is inactive", "Error",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Account is inactive", "Error", JOptionPane.ERROR_MESSAGE);
 				} catch (Exception e) {
 					error(e);
 				}
@@ -395,8 +385,7 @@ public class BankGUI extends JFrame {
 	public void withdraw() {
 		String number = currentAccountNumber();
 		if (number != null) {
-			String s = JOptionPane.showInputDialog(this, "Enter amount to draw:",
-					"Draw Money", JOptionPane.QUESTION_MESSAGE);
+			String s = JOptionPane.showInputDialog(this, "Enter amount to draw:", "Draw Money", JOptionPane.QUESTION_MESSAGE);
 			if (s != null) {
 				try {
 					double amount = Double.parseDouble(s);
@@ -404,17 +393,13 @@ public class BankGUI extends JFrame {
 					a.withdraw(amount);
 					fld_balance.setText(currencyFormat(a.getBalance()));
 				} catch (NumberFormatException e) {
-					JOptionPane.showMessageDialog(this, "Illegal Value", "Error",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Illegal Value", "Error", JOptionPane.ERROR_MESSAGE);
 				} catch (IllegalArgumentException e) {
-					JOptionPane.showMessageDialog(this, "Illegal Argument", "Error",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Illegal Argument", "Error", JOptionPane.ERROR_MESSAGE);
 				} catch (InactiveException e) {
-					JOptionPane.showMessageDialog(this, "Account is inactive", "Error",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Account is inactive", "Error", JOptionPane.ERROR_MESSAGE);
 				} catch (OverdrawException e) {
-					JOptionPane.showMessageDialog(this, "Account must not be overdrawn",
-							"Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Account must not be overdrawn", "Error", JOptionPane.ERROR_MESSAGE);
 				} catch (Exception e) {
 					error(e);
 				}
@@ -429,8 +414,7 @@ public class BankGUI extends JFrame {
 				Set<String> s = new HashSet<String>(accounts.keySet());
 				s.remove(number);
 
-				TransferDialog trans = new TransferDialog(this, "Transfer Money",
-						number, s);
+				TransferDialog trans = new TransferDialog(this, "Transfer Money", number, s);
 				Point loc = getLocation();
 				trans.setLocation(loc.x + 50, loc.y + 50);
 				trans.setModal(true);
@@ -438,8 +422,7 @@ public class BankGUI extends JFrame {
 
 				if (!trans.canceled()) {
 					if (number.equals(trans.getAccountNumber())) {
-						JOptionPane.showMessageDialog(this, "Both Accounts are the same!",
-								"Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(this, "Both Accounts are the same!", "Error", JOptionPane.ERROR_MESSAGE);
 					} else {
 						try {
 							double amount = Double.parseDouble(trans.getBalance());
@@ -450,22 +433,17 @@ public class BankGUI extends JFrame {
 							// after transfer adjust value of displayed account
 							fld_balance.setText(currencyFormat(from.getBalance()));
 
-							JOptionPane.showMessageDialog(this, "Transfer successfull",
-									"Information", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(this, "Transfer successfull", "Information",
+									JOptionPane.INFORMATION_MESSAGE);
 						} catch (NumberFormatException e) {
-							JOptionPane.showMessageDialog(this, "Illegal Balance", "Error",
-									JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(this, "Illegal Balance", "Error", JOptionPane.ERROR_MESSAGE);
 						} catch (IllegalArgumentException e) {
-							JOptionPane.showMessageDialog(this, "Illegal Argument", "Error",
-									JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(this, "Illegal Argument", "Error", JOptionPane.ERROR_MESSAGE);
 						} catch (InactiveException e) {
-							JOptionPane.showMessageDialog(this,
-									"At least one account is inactive", "Error",
+							JOptionPane.showMessageDialog(this, "At least one account is inactive", "Error",
 									JOptionPane.ERROR_MESSAGE);
 						} catch (OverdrawException e) {
-							JOptionPane.showMessageDialog(this,
-									"Account must not be overdrawn", "Error",
-									JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(this, "Account must not be overdrawn", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 				}
@@ -540,8 +518,7 @@ public class BankGUI extends JFrame {
 					fld_owner.setText(a.getOwner());
 					fld_balance.setText(currencyFormat(a.getBalance()));
 				} else {
-					JOptionPane.showMessageDialog(this, "Account not found", "Error",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Account not found", "Error", JOptionPane.ERROR_MESSAGE);
 					refreshDialog();
 				}
 			} else {
@@ -568,8 +545,7 @@ public class BankGUI extends JFrame {
 		Dimension dlgSize = dlg.getPreferredSize();
 		Dimension frmSize = getSize();
 		Point loc = getLocation();
-		dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x,
-				(frmSize.height - dlgSize.height) / 2 + loc.y);
+		dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
 		dlg.setModal(true);
 		dlg.setVisible(true);
 	}
@@ -698,8 +674,7 @@ public class BankGUI extends JFrame {
 
 		private boolean canceled = true;
 
-		TransferDialog(Frame owner, String title, String account,
-				Set<String> accounts) {
+		TransferDialog(Frame owner, String title, String account, Set<String> accounts) {
 			super(owner, title);
 
 			JButton btn_ok = new JButton("Ok");

@@ -28,8 +28,7 @@ public class FunctionalityTest implements BankTest {
 	}
 
 	@Override
-	public void runTests(JFrame context, final Bank bank,
-			String currentAccountNumber) throws Exception {
+	public void runTests(JFrame context, final Bank bank, String currentAccountNumber) throws Exception {
 		final Account acc = bank.getAccount(currentAccountNumber);
 
 		String msg = null;
@@ -52,8 +51,7 @@ public class FunctionalityTest implements BankTest {
 			bank.closeAccount(nr);
 			try {
 				a.deposit(100);
-				msg = "active is not implemented correctly!\n"
-						+ "Transactions are not allowed on a closed account.";
+				msg = "active is not implemented correctly!\n" + "Transactions are not allowed on a closed account.";
 			} catch (InactiveException e) {
 			}
 		}
@@ -61,8 +59,7 @@ public class FunctionalityTest implements BankTest {
 		// is it possible to overdraw the account?
 		if (msg == null) {
 			if (acc.getBalance() < 0) {
-				msg = "it is possible to overdraw your account!\n"
-						+ "look at the balance of the current account.";
+				msg = "it is possible to overdraw your account!\n" + "look at the balance of the current account.";
 			} else {
 				double amount = acc.getBalance();
 				acc.withdraw(amount);
@@ -73,8 +70,7 @@ public class FunctionalityTest implements BankTest {
 					/* ignore the exception */
 				}
 				if (acc.getBalance() < 0) {
-					msg = "it is possible to overdraw your account!\n"
-							+ "look at the balance of the current account.";
+					msg = "it is possible to overdraw your account!\n" + "look at the balance of the current account.";
 				} else {
 					acc.deposit(amount);
 				}
@@ -101,8 +97,7 @@ public class FunctionalityTest implements BankTest {
 				double bal1 = a1.getBalance();
 				double bal2 = a2.getBalance();
 				if (bal1 != 50 || bal2 != 50) {
-					msg = "Although an exception was thrown by transfer, "
-							+ "the balances have been changed.\n"
+					msg = "Although an exception was thrown by transfer, " + "the balances have been changed.\n"
 							+ "When an exception is thrown the state must not be changed.";
 				}
 			}
@@ -235,8 +230,7 @@ public class FunctionalityTest implements BankTest {
 			if (msg == null) {
 				Account a = bank.getAccount(a2);
 				if (a == null) {
-					msg = "method getAccount must return all created accounts,\n"
-							+ "even if they are closed.";
+					msg = "method getAccount must return all created accounts,\n" + "even if they are closed.";
 				}
 			}
 			bank.closeAccount(a1);
@@ -293,7 +287,6 @@ public class FunctionalityTest implements BankTest {
 		if (msg == null)
 			msg = "Your implementation passed all unit tests";
 
-		JOptionPane.showMessageDialog(context, msg, "Test Result",
-				JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(context, msg, "Test Result", JOptionPane.INFORMATION_MESSAGE);
 	}
 }
