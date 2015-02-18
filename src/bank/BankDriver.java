@@ -17,7 +17,7 @@ import java.io.IOException;
  */
 
 public interface BankDriver {
-
+   
 	/**
 	 * Connects to an implementation of a bank. Parameters which designate e.g. the name or number of the server and
 	 * possibly other arguments may be passed.
