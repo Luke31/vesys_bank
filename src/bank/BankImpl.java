@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class BankImpl implements bank.Bank {
 
@@ -14,13 +15,10 @@ public class BankImpl implements bank.Bank {
 	
 	@Override
 	public Set<String> getAccountNumbers() throws IOException {
-		Set<String> activeAccountNumbers = new HashSet<>();
-		for(Account acc : accounts.values()){
-			if(acc.isActive())
-			activeAccountNumbers.add(acc.getNumber());
-		}
-		
-		return activeAccountNumbers;
+        return accounts.values().stream()
+                .filter(acc -> acc.isActive())
+                .map(acc -> acc.getNumber())
+                .collect(Collectors.toSet());
 	}
 
 	@Override
