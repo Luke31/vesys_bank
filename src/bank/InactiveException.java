@@ -13,6 +13,7 @@ package bank;
  * @author Dominik Gruntz
  * @version 3.0
  */
+@SuppressWarnings("serial")
 public class InactiveException extends Exception {
 	public InactiveException() {
 		super();

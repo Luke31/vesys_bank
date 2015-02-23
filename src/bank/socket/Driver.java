@@ -3,24 +3,26 @@
  * All Rights Reserved. 
  */
 
-package bank.local;
+package bank.socket;
+
+import java.io.IOException;
+import java.net.UnknownHostException;
 
 import bank.Bank;
-import bank.BankImpl;
 
 public class Driver implements bank.BankDriver {
 	private Bank bank = null;
 
 	@Override
-	public void connect(String[] args) {
-		bank = new BankImpl();
-		System.out.println("local connected...");
+	public void connect(String[] args) throws UnknownHostException, IOException {
+		bank = new SocketBank();
+		System.out.println("socket connected...");
 	}
 
 	@Override
 	public void disconnect() {
 		bank = null;
-		System.out.println("local disconnected...");
+		System.out.println("socket disconnected...");
 	}
 
 	@Override

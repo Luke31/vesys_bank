@@ -29,13 +29,13 @@ public class Driver implements BankDriver {
 	@Override
 	public void connect(String[] args) {
 		bank = new DummyBank();
-		System.out.println("connected...");
+		System.out.println("dummy connected...");
 	}
 
 	@Override
 	public void disconnect() {
 		bank = null;
-		System.out.println("disconnected...");
+		System.out.println("dummy disconnected...");
 	}
 
 	@Override
