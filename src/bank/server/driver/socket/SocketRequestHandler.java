@@ -6,9 +6,11 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import bank.Account;
 import bank.Bank;
 import bank.InactiveException;
 import bank.OverdrawException;
+import bank.driver.socket.AccountRequestData;
 import bank.driver.socket.Request;
 import bank.driver.socket.TransferData;
 
@@ -61,6 +63,7 @@ public class SocketRequestHandler implements Runnable {
 	 */
 	private Object handleRequest(Request request) throws IOException, IllegalArgumentException, OverdrawException, InactiveException {
 		switch (request.getType()) {
+		    //Bank
 		    case CreateAccount: 
 		        return bank.createAccount((String)request.getData());
 		   
@@ -76,7 +79,30 @@ public class SocketRequestHandler implements Runnable {
 		    case Transfer:
 		        TransferData data = (TransferData)request.getData();
 		        bank.transfer(data.a, data.b, data.amount);
+		        break;
 		        
+		    //Account
+		    case Account:
+		        AccountRequestData aData = (AccountRequestData)request.getData();
+		        Account acc = bank.getAccount(aData.getAccountNumber());
+		        switch(aData.getType()){
+        		    case A_GetNumber:
+        		        return acc.getNumber();
+        		    case A_GetOwner:
+        		        return acc.getOwner();
+        		    case A_IsActive:
+                        return acc.isActive();
+        		    case A_Deposit:
+                        acc.deposit(aData.getData());
+        		    case A_Withdraw:
+                        acc.withdraw(aData.getData());
+        		    case A_GetBalance:
+                        return acc.getBalance();
+        		    case A_Close:
+        		        return acc.close();
+        		    default:
+        		        break;
+		        }
 		    default: 
 		        break;
 		}
