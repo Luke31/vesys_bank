@@ -3,13 +3,14 @@
  * All Rights Reserved. 
  */
 
-package bank;
+package bank.client;
 
 import java.io.IOException;
 
 import javax.swing.SwingUtilities;
 
-import bank.gui.BankGUI;
+import bank.client.gui.BankGUI;
+import bank.driver.BankDriver;
 
 /**
  * Class Client is used to start the Client side of the bank application. As a runtime parameter the name of the class

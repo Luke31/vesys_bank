@@ -3,9 +3,11 @@
  * All Rights Reserved. 
  */
 
-package bank;
+package bank.driver;
 
 import java.io.IOException;
+
+import bank.Bank;
 
 /**
  * The BankDriver interface is used to access a particular bank. The client program first calls connect over this

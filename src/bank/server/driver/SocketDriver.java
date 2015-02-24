@@ -3,12 +3,12 @@
  * All Rights Reserved. 
  */
 
-package bank.local;
+package bank.server.driver;
 
 import bank.Bank;
-import bank.BankImpl;
+import bank.server.BankImpl;
 
-public class Driver implements bank.BankDriver {
+public class SocketDriver implements bank.driver.BankDriver {
 	private Bank bank = null;
 
 	@Override

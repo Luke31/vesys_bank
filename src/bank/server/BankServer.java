@@ -1,12 +1,12 @@
-package bank.socket;
+package bank.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 
 import bank.Bank;
-import bank.BankImpl;
+import bank.server.driver.socket.SocketRequestHandler;
 
-public class SocketServer {
+public class BankServer {
 
 	private static int MAX_CLIENTS = 10;	
 	public static int PORT = 1111;
@@ -14,10 +14,10 @@ public class SocketServer {
 	private Bank bank = null;
 	
 	public static void main(String[] args) {
-		new SocketServer(PORT);
+		new BankServer(PORT);
 	}
 	
-	public SocketServer (int port) {
+	public BankServer (int port) {
 		bank = new BankImpl();
 		
 		try {

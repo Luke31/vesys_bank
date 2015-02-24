@@ -3,9 +3,11 @@
  * All Rights Reserved. 
  */
 
-package bank;
+package bank.driver;
 
 import java.io.IOException;
+
+import bank.Bank;
 
 /**
  * The BankDriver2 interface allows the client to register a listener which informs the client about changes.

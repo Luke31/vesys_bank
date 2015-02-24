@@ -1,4 +1,4 @@
-package bank.socket;
+package bank.server.driver.socket;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -9,8 +9,8 @@ import java.net.Socket;
 import bank.Bank;
 import bank.InactiveException;
 import bank.OverdrawException;
-import bank.Request;
-import bank.TransferData;
+import bank.driver.socket.Request;
+import bank.driver.socket.TransferData;
 
 public class SocketRequestHandler implements Runnable {
 

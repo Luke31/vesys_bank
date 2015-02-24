@@ -1,4 +1,4 @@
-package bank.socket;
+package bank.client.driver.socket;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -7,11 +7,12 @@ import java.net.Socket;
 import java.util.Set;
 
 import bank.Account;
-import bank.Request;
-import bank.TransferData;
-import bank.Request.RequestType;
+import bank.driver.socket.Request;
+import bank.driver.socket.TransferData;
+import bank.driver.socket.Request.RequestType;
+import bank.server.BankServer;
 
-class SocketBank implements bank.Bank {
+public class SocketBank implements bank.Bank {
 
     private Socket socket_obj = null;
     private ObjectOutputStream out_obj = null;
@@ -19,7 +20,7 @@ class SocketBank implements bank.Bank {
     
     public Socket getSocket() throws IOException {
         if(socket_obj == null || socket_obj.isClosed()) {
-            socket_obj = new Socket(SocketServer.HOST, SocketServer.PORT);
+            socket_obj = new Socket(BankServer.HOST, BankServer.PORT);
         }
         
         return socket_obj;

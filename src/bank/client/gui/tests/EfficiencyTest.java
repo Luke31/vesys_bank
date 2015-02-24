@@ -3,7 +3,7 @@
  * All Rights Reserved. 
  */
 
-package bank.gui.tests;
+package bank.client.gui.tests;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;

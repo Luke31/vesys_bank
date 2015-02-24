@@ -1,7 +1,10 @@
-package bank;
+package bank.server;
 
 import java.io.IOException;
 import java.io.Serializable;
+
+import bank.InactiveException;
+import bank.OverdrawException;
 
 public class AccountImpl implements bank.Account, Serializable{
 

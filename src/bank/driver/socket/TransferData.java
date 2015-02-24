@@ -1,4 +1,6 @@
-package bank;
+package bank.driver.socket;
+
+import bank.Account;
 
 public class TransferData {
     public Account a;

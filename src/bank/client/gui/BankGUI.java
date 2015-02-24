@@ -3,7 +3,7 @@
  * All Rights Reserved. 
  */
 
-package bank.gui;
+package bank.client.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -49,11 +49,11 @@ import javax.swing.SwingUtilities;
 
 import bank.Account;
 import bank.Bank;
-import bank.BankDriver;
-import bank.BankDriver2;
 import bank.InactiveException;
 import bank.OverdrawException;
-import bank.gui.tests.BankTest;
+import bank.client.gui.tests.BankTest;
+import bank.driver.BankDriver;
+import bank.driver.BankDriver2;
 
 @SuppressWarnings("serial")
 public class BankGUI extends JFrame {

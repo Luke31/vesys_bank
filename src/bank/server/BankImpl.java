@@ -1,10 +1,14 @@
-package bank;
+package bank.server;
 
 import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
+
+import bank.Account;
+import bank.InactiveException;
+import bank.OverdrawException;
 
 public class BankImpl implements bank.Bank {
 
