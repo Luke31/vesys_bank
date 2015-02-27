@@ -124,27 +124,27 @@ public class BankGUI extends JFrame {
 		setBackground(Color.lightGray);
 
 		BankTest test;
-		test = loadTest("bank.gui.tests.EfficiencyTest");
+		test = loadTest("bank.client.gui.tests.EfficiencyTest");
 		if (test != null) {
 			tests.add(test);
 		}
-		test = loadTest("bank.gui.tests.WarmUp");
+		test = loadTest("bank.client.gui.tests.WarmUp");
 		if (test != null) {
 			tests.add(test);
 		}
-		test = loadTest("bank.gui.tests.ThreadingTest");
+		test = loadTest("bank.client.gui.tests.ThreadingTest");
 		if (test != null) {
 			tests.add(test);
 		}
-		test = loadTest("bank.gui.tests.FunctionalityTest");
+		test = loadTest("bank.client.gui.tests.FunctionalityTest");
 		if (test != null) {
 			tests.add(test);
 		}
-		test = loadTest("bank.gui.tests.TransferTest");
+		test = loadTest("bank.client.gui.tests.TransferTest");
 		if (test != null) {
 			tests.add(test);
 		}
-		test = loadTest("bank.gui.tests.ConcurrentReads");
+		test = loadTest("bank.client.gui.tests.ConcurrentReads");
 		if (test != null) {
 			tests.add(test);
 		}

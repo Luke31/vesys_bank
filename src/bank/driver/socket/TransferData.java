@@ -1,15 +1,20 @@
 package bank.driver.socket;
 
+import java.io.Serializable;
+
 import bank.Account;
 
-public class TransferData {
-    public Account a;
-    public Account b;
+public class TransferData implements Serializable{
+
+    private static final long serialVersionUID = 6706803283972641531L;
+    
+    public String aNum;
+    public String bNum;
     public double amount;
     
-    public TransferData (Account a, Account b, double amount) {
-        this.a = a;
-        this.b = b;
+    public TransferData (String aNum, String bNum, double amount) {
+        this.aNum = aNum;
+        this.bNum = bNum;
         this.amount = amount;
     }
 }

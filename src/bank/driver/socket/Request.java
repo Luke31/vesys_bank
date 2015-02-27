@@ -7,15 +7,9 @@ public class Request implements Serializable {
     private static final long serialVersionUID = -6087436160950505537L;
 
     public enum RequestType {  
-        //Bank:
-        CreateAccount, 
-        CloseAccount,
-        GetAccountNumbers,
-        GetAccount,
-        Transfer,
-        
-        //Account:
-        Account;
+        Bank,
+        Account,
+        ExceptionStatus;
     }
     
     private RequestType type;

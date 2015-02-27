@@ -40,22 +40,17 @@ public class SocketHandler {
         return in_obj;
     }
     
-    public <T> T sendRequest (RequestType type) throws IOException {
-        return sendRequest (type, null);
-    }
-    
-    @SuppressWarnings("unchecked")
-    public <T> T sendRequest (RequestType type, Object data) throws IOException {
+    public Request sendRequest (RequestType type, Object data) throws IOException {
         ObjectOutputStream out = getOutputStream();
         
-        out.writeObject(new Request (type, data));
+        out.writeObject(new Request (type, data)); //Send request to Server
         out.flush();
         
-        ObjectInputStream in = getInputStream();      
-        T ret = null;
+        ObjectInputStream in = getInputStream();
+        Request ret = null;
         
         try {
-            ret = (T)in.readObject();
+            ret = (Request)in.readObject(); //Get response  
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

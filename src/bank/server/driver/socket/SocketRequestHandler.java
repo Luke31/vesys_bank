@@ -11,7 +11,9 @@ import bank.Bank;
 import bank.InactiveException;
 import bank.OverdrawException;
 import bank.driver.socket.AccountRequestData;
+import bank.driver.socket.BankRequestData;
 import bank.driver.socket.Request;
+import bank.driver.socket.Request.RequestType;
 import bank.driver.socket.TransferData;
 
 public class SocketRequestHandler implements Runnable {
@@ -38,9 +40,17 @@ public class SocketRequestHandler implements Runnable {
                 out = new ObjectOutputStream(client.getOutputStream());
 
                 while (true) {  
-                    Request request = (Request)in.readObject();
+                    Request request = (Request)in.readObject(); //Load Request from Client - May not be too large!
                     
-                    out.writeObject(handleRequest(request));    
+                    Request answer = null;
+                    try{
+                        Object answerData = handleRequest(request); //Handle Request for answer to Client
+                        answer = new Request(request.getType(), answerData);                       
+                    }catch(Exception e){
+                        //IOException or invalid Action -> Send Exception to client
+                        answer = new Request(RequestType.ExceptionStatus, e); //Return Exception
+                    }
+                    out.writeObject(answer); //Answer to client
                     out.flush();                    
                 }
 			} catch (Exception e) {
@@ -62,25 +72,30 @@ public class SocketRequestHandler implements Runnable {
 	 * @throws IllegalArgumentException 
 	 */
 	private Object handleRequest(Request request) throws IOException, IllegalArgumentException, OverdrawException, InactiveException {
-		switch (request.getType()) {
-		    //Bank
-		    case CreateAccount: 
-		        return bank.createAccount((String)request.getData());
-		   
-		    case CloseAccount:
-		        return bank.closeAccount((String)request.getData());
-		        
-		    case GetAccountNumbers:
-		        return bank.getAccountNumbers();
-		        
-		    case GetAccount:
-		        return bank.getAccount((String)request.getData());
-		    
-		    case Transfer:
-		        TransferData data = (TransferData)request.getData();
-		        bank.transfer(data.a, data.b, data.amount);
+		
+	    switch (request.getType()) {
+		    case Bank:
+		        BankRequestData bData = (BankRequestData)request.getData();
+		        switch(bData.getType()){
+        		    //Bank
+        		    case CreateAccount: 
+        		        return bank.createAccount((String)bData.getData());
+        		   
+        		    case CloseAccount:
+        		        return bank.closeAccount((String)bData.getData());
+        		        
+        		    case GetAccountNumbers:
+        		        return bank.getAccountNumbers();
+        		        
+        		    case GetAccount:
+        		        return bank.getAccount((String)bData.getData());
+        		    
+        		    case Transfer:
+        		        TransferData data = (TransferData)bData.getData();
+        		        bank.transfer(bank.getAccount(data.aNum), bank.getAccount(data.bNum), data.amount);
+        		        break;
+		        }
 		        break;
-		        
 		    //Account
 		    case Account:
 		        AccountRequestData aData = (AccountRequestData)request.getData();
@@ -93,9 +108,9 @@ public class SocketRequestHandler implements Runnable {
         		    case A_IsActive:
                         return acc.isActive();
         		    case A_Deposit:
-                        acc.deposit(aData.getData());
+                        acc.deposit(aData.getData()); break;
         		    case A_Withdraw:
-                        acc.withdraw(aData.getData());
+                        acc.withdraw(aData.getData()); break;
         		    case A_GetBalance:
                         return acc.getBalance();
         		    case A_Close:
@@ -103,6 +118,7 @@ public class SocketRequestHandler implements Runnable {
         		    default:
         		        break;
 		        }
+		        break;
 		    default: 
 		        break;
 		}

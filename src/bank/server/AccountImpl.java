@@ -12,7 +12,7 @@ public class AccountImpl implements bank.Account, Serializable{
     
     private String number;
 	private String owner;
-	private double balance;
+	private double balance = 0;
 	private boolean active = true;
 
 	public AccountImpl(String owner, String number) {
@@ -41,19 +41,21 @@ public class AccountImpl implements bank.Account, Serializable{
 	}
 
 	@Override
-	public synchronized void deposit(double amount) throws InactiveException {
-		amount = Math.abs(amount);
+	public synchronized void deposit(double amount) throws IllegalArgumentException, InactiveException {
 		if(!isActive())
 			throw new InactiveException();
+		else if(amount < 0.0d)
+		    throw new IllegalArgumentException();
 		else
-			balance += amount;
+		    balance += amount;
 	}
 
 	@Override
-	public synchronized void withdraw(double amount) throws InactiveException, OverdrawException {
-		amount = Math.abs(amount);
+	public synchronized void withdraw(double amount) throws IllegalArgumentException, OverdrawException, InactiveException {
 		if(!isActive())
 			throw new InactiveException();
+		else if(amount < 0.0d)
+            throw new IllegalArgumentException();
 		else if(balance - amount < 0)
 			throw new OverdrawException();
 		else
