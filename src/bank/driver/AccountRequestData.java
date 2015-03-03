@@ -1,4 +1,4 @@
-package bank.driver.socket;
+package bank.driver;
 
 import java.io.Serializable;
 

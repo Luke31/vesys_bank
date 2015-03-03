@@ -2,8 +2,8 @@ package bank.client.driver;
 
 import java.io.IOException;
 
-import bank.driver.socket.Request;
-import bank.driver.socket.Request.RequestType;
+import bank.driver.Request;
+import bank.driver.Request.RequestType;
 
 public interface ClientRequestHandler {
 

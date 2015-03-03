@@ -6,10 +6,10 @@ import bank.Account;
 import bank.InactiveException;
 import bank.OverdrawException;
 import bank.client.driver.ClientRequestHandler;
-import bank.driver.socket.AccountRequestData;
-import bank.driver.socket.AccountRequestData.AccountRequestType;
-import bank.driver.socket.Request;
-import bank.driver.socket.Request.RequestType;
+import bank.driver.AccountRequestData;
+import bank.driver.Request;
+import bank.driver.AccountRequestData.AccountRequestType;
+import bank.driver.Request.RequestType;
 
 public class ClientAccount implements Account {
     private ClientRequestHandler clientRequestHandler;

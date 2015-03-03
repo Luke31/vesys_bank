@@ -7,11 +7,11 @@ import bank.Account;
 import bank.InactiveException;
 import bank.OverdrawException;
 import bank.client.driver.ClientRequestHandler;
-import bank.driver.socket.BankRequestData;
-import bank.driver.socket.BankRequestData.BankRequestType;
-import bank.driver.socket.Request;
-import bank.driver.socket.Request.RequestType;
-import bank.driver.socket.TransferData;
+import bank.driver.BankRequestData;
+import bank.driver.Request;
+import bank.driver.TransferData;
+import bank.driver.BankRequestData.BankRequestType;
+import bank.driver.Request.RequestType;
 
 public class ClientBank implements bank.Bank {
     private ClientRequestHandler clientRequestHandler;    

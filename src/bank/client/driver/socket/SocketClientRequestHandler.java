@@ -7,8 +7,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import bank.client.driver.ClientRequestHandler;
-import bank.driver.socket.Request;
-import bank.driver.socket.Request.RequestType;
+import bank.driver.Request;
+import bank.driver.Request.RequestType;
 
 public class SocketClientRequestHandler implements ClientRequestHandler {
     private Socket socket_obj = null;
