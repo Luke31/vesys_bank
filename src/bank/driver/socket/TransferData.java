@@ -2,8 +2,6 @@ package bank.driver.socket;
 
 import java.io.Serializable;
 
-import bank.Account;
-
 public class TransferData implements Serializable{
 
     private static final long serialVersionUID = 6706803283972641531L;

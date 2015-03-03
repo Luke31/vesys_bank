@@ -9,8 +9,8 @@ import java.io.IOException;
 
 import javax.swing.SwingUtilities;
 
+import bank.client.driver.ClientBankDriver;
 import bank.client.gui.BankGUI;
-import bank.driver.BankDriver;
 
 /**
  * Class Client is used to start the Client side of the bank application. As a runtime parameter the name of the class
@@ -29,7 +29,7 @@ import bank.driver.BankDriver;
  * java bank.Client bank.sockets.Driver localhost 1234
  * </pre>
  * 
- * @see BankDriver
+ * @see ClientBankDriver
  * @author Dominik Gruntz
  * @version 3.0
  */
@@ -45,10 +45,10 @@ public final class Client {
 			System.exit(1);
 		}
 
-		BankDriver server = null;
+		ClientBankDriver server = null;
 		try {
 			Class<?> c = Class.forName(args[0]);
-			server = (BankDriver) c.newInstance();
+			server = (ClientBankDriver) c.newInstance();
 		} catch (ClassNotFoundException e) {
 			System.out.println("class " + args[0] + " coult not be found");
 			System.exit(1);

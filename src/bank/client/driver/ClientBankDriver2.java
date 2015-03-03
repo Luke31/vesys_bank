@@ -3,7 +3,7 @@
  * All Rights Reserved. 
  */
 
-package bank.driver;
+package bank.client.driver;
 
 import java.io.IOException;
 
@@ -17,7 +17,7 @@ import bank.Bank;
  * @version 3.0
  */
 
-public interface BankDriver2 extends BankDriver {
+public interface ClientBankDriver2 extends ClientBankDriver {
 
 	/**
 	 * Registers a update handler. Whenever an account changes (is created, closed or if its balance is changed) then the

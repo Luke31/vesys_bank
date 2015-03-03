@@ -3,21 +3,25 @@
  * All Rights Reserved. 
  */
 
-package bank.client.driver;
+package bank.client.driver.socket;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
 
 import bank.Bank;
 import bank.client.ClientBank;
-import bank.client.driver.socket.SocketHandler;
 
-public class SocketDriver implements bank.driver.BankDriver {
+public class SocketClientBankDriver implements bank.client.driver.ClientBankDriver {
 	private Bank bank = null;
-
+	private int port;
+	private String host;
+	
 	@Override
 	public void connect(String[] args) throws UnknownHostException, IOException {
-		bank = new ClientBank(new SocketHandler()); //Proxy-Bank für GUI (Client)
+	    this.host = args[0];
+	    this.port = Integer.parseInt(args[1]);
+	    
+		bank = new ClientBank(new SocketClientRequestHandler(host, port)); //Proxy-Bank für GUI (Client)
 		
 		System.out.println("socket connected...");
 	}

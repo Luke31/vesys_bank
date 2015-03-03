@@ -3,7 +3,7 @@
  * All Rights Reserved. 
  */
 
-package bank.driver;
+package bank.client.driver;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ import bank.Bank;
  * @version 3.0
  */
 
-public interface BankDriver {
+public interface ClientBankDriver {
    
 	/**
 	 * Connects to an implementation of a bank. Parameters which designate e.g. the name or number of the server and

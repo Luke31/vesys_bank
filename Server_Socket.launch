@@ -7,5 +7,6 @@
 <listEntry value="1"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="bank.server.BankServer"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="bank.server.driver.socket.SocketServerBankDriver 1111"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="bank"/>
 </launchConfiguration>

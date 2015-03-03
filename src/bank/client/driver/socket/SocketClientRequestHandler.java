@@ -4,20 +4,27 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
-import bank.client.ClientHandler;
+import bank.client.driver.ClientRequestHandler;
 import bank.driver.socket.Request;
 import bank.driver.socket.Request.RequestType;
-import bank.server.BankServer;
 
-public class SocketHandler implements ClientHandler {
+public class SocketClientRequestHandler implements ClientRequestHandler {
     private Socket socket_obj = null;
     private ObjectOutputStream out_obj = null;
     private ObjectInputStream in_obj = null;
+    private String host;
+    private int port;
     
+    public SocketClientRequestHandler(String host, int port) throws UnknownHostException, IOException {
+        this.host = host;
+        this.port = port;
+    }
+
     private Socket getSocket() throws IOException {
         if(socket_obj == null || socket_obj.isClosed()) {
-            socket_obj = new Socket(BankServer.HOST, BankServer.PORT);
+            socket_obj = new Socket(host, port);
         }
         
         return socket_obj;
@@ -58,7 +65,7 @@ public class SocketHandler implements ClientHandler {
             ret = (Request)in.readObject(); //Get response  
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }
+        } 
         
         return ret;
     }

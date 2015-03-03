@@ -3,7 +3,7 @@
  * All Rights Reserved. 
  */
 
-package bank.client.driver;
+package bank.client.driver.dummy;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -12,7 +12,7 @@ import java.util.Set;
 
 import bank.Account;
 import bank.Bank;
-import bank.driver.BankDriver;
+import bank.client.driver.ClientBankDriver;
 
 /*
  * This class implements a dummy driver which can be used to start and test
@@ -23,7 +23,7 @@ import bank.driver.BankDriver;
  * @see BankDriver
  */
 
-public class DummyDriver implements BankDriver {
+public class DummyDriver implements ClientBankDriver {
 	private Bank bank = null;
 
 	@Override

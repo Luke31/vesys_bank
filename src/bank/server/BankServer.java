@@ -1,35 +1,45 @@
 package bank.server;
 
 import java.io.IOException;
-import java.net.ServerSocket;
 
-import bank.Bank;
-import bank.server.driver.socket.SocketRequestHandler;
+import bank.client.Client;
+import bank.server.driver.ServerBankDriver;
 
 public class BankServer {
-
-	private static int MAX_CLIENTS = 10;	
-	public static int PORT = 1111;
-	public static String HOST = "localhost";
-	private Bank bank = null;
 	
 	public static void main(String[] args) {
-		new BankServer(PORT);
+	    if (args.length < 1) {
+            System.out.println("Usage: java " + Client.class.getName() + " <class>");
+            System.exit(1);
+        }
+	    
+        ServerBankDriver server = null;
+        try {
+            Class<?> c = Class.forName(args[0]);
+            server = (ServerBankDriver) c.newInstance();
+        } catch (ClassNotFoundException e) {
+            System.out.println("class " + args[0] + " coult not be found");
+            System.exit(1);
+        } catch (InstantiationException e) {
+            System.out.println("class " + args[0] + " could not be instantiated");
+            System.out.println("probably it has no public default constructor!");
+            System.exit(1);
+        } catch (IllegalAccessException e) {
+            System.out.println("class " + args[0] + " could not be instantiated");
+            System.out.println("probably it is not declared public!");
+            System.exit(1);
+        }
+
+        String[] serverArgs = new String[args.length - 1];
+        System.arraycopy(args, 1, serverArgs, 0, args.length - 1);
+	    
+        try {
+            server.startServer(serverArgs);
+        } catch (IOException e) {
+            System.out.println("Problem while starting the server:");
+            e.printStackTrace();
+            System.exit(1);
+        }
 	}
-	
-	public BankServer (int port) {
-		bank = new BankImpl();
-		
-		try {
-			ServerSocket socket = new ServerSocket(port);
-			socket.setSoTimeout(60000);
-			
-			for(int i = 0; i < MAX_CLIENTS; i++) {
-				Thread t = new Thread(new SocketRequestHandler(bank, socket));
-				t.start();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+
 }

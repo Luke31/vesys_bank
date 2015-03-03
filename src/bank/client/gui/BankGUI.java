@@ -51,14 +51,14 @@ import bank.Account;
 import bank.Bank;
 import bank.InactiveException;
 import bank.OverdrawException;
+import bank.client.driver.ClientBankDriver;
+import bank.client.driver.ClientBankDriver2;
 import bank.client.gui.tests.BankTest;
-import bank.driver.BankDriver;
-import bank.driver.BankDriver2;
 
 @SuppressWarnings("serial")
 public class BankGUI extends JFrame {
 
-	private BankDriver driver;
+	private ClientBankDriver driver;
 	private Bank bank;
 
 	private JComboBox<String> accountcombo = new JComboBox<String>();
@@ -94,14 +94,14 @@ public class BankGUI extends JFrame {
 		}
 	}
 
-	public BankGUI(BankDriver server) {
+	public BankGUI(ClientBankDriver server) {
 		this.driver = server;
 		this.bank = server.getBank();
 
-		if (server instanceof BankDriver2) {
+		if (server instanceof ClientBankDriver2) {
 			final AtomicBoolean refreshRegistered = new AtomicBoolean(false);
 			try {
-				((BankDriver2) server).registerUpdateHandler(new BankDriver2.UpdateHandler() {
+				((ClientBankDriver2) server).registerUpdateHandler(new ClientBankDriver2.UpdateHandler() {
 					@Override
 					public void accountChanged(String number) {
 						if (refreshRegistered.compareAndSet(false, true)) {
@@ -251,7 +251,7 @@ public class BankGUI extends JFrame {
 		p.add(new JLabel(""), BorderLayout.NORTH);
 		p.add(center, BorderLayout.CENTER);
 		p.add(east, BorderLayout.EAST);
-		if (!(driver instanceof BankDriver2)) {
+		if (!(driver instanceof ClientBankDriver2)) {
 			p.add(btn_refresh, BorderLayout.SOUTH);
 		} else {
 			p.add(new JLabel(""), BorderLayout.SOUTH);
