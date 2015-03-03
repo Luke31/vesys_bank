@@ -7,7 +7,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import bank.driver.Request;
-import bank.server.ServerRequestHandler;
 import bank.server.driver.ServerBankDriver;
 
 public class SocketServerBankDriver extends ServerBankDriver {
@@ -16,16 +15,13 @@ public class SocketServerBankDriver extends ServerBankDriver {
     private ObjectInputStream in;
     private ObjectOutputStream out;
 	
-	private ServerRequestHandler requestHandler;
 	
 	public SocketServerBankDriver(){
-	    super(); //Create ServerDriver with Bank
+	    super(); //Create ServerDriver with BankImpl and ServerRequestHandler
 	}
 	
 	@Override
-	public void startServer(String[] args) throws IOException{
-	    this.requestHandler = new ServerRequestHandler(super.getBank());
-	    
+	public void startServer(String[] args) throws IOException{	    
 	    try {
 	        int port = Integer.parseInt(args[0]);
             socket = new ServerSocket(port);
@@ -58,7 +54,7 @@ public class SocketServerBankDriver extends ServerBankDriver {
     
                     while (true) {  
                         Request request = (Request)in.readObject(); //Load Request from Client - May not be too large!
-                        Request answer = requestHandler.handleRequest(request);
+                        Request answer = getRequestHandler().handleRequest(request); //Get ServerRequestHandler from parent-class
                         out.writeObject(answer); //Answer to client
                         out.flush();                    
                     }
