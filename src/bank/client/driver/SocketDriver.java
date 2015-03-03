@@ -9,14 +9,15 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 
 import bank.Bank;
-import bank.client.driver.socket.ClientBank;
+import bank.client.ClientBank;
+import bank.client.driver.socket.SocketHandler;
 
 public class SocketDriver implements bank.driver.BankDriver {
 	private Bank bank = null;
 
 	@Override
 	public void connect(String[] args) throws UnknownHostException, IOException {
-		bank = new ClientBank(); //Proxy-Bank für GUI (Client)
+		bank = new ClientBank(new SocketHandler()); //Proxy-Bank für GUI (Client)
 		
 		System.out.println("socket connected...");
 	}

@@ -5,7 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import bank.client.driver.ClientHandler;
+import bank.client.ClientHandler;
 import bank.driver.socket.Request;
 import bank.driver.socket.Request.RequestType;
 import bank.server.BankServer;

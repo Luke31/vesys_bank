@@ -1,11 +1,10 @@
-package bank.client.driver.socket;
+package bank.client;
 
 import java.io.IOException;
 
 import bank.Account;
 import bank.InactiveException;
 import bank.OverdrawException;
-import bank.client.driver.ClientHandler;
 import bank.driver.socket.AccountRequestData;
 import bank.driver.socket.AccountRequestData.AccountRequestType;
 import bank.driver.socket.Request;

@@ -1,4 +1,4 @@
-package bank.client.driver.socket;
+package bank.client;
 
 import java.io.IOException;
 import java.util.Set;
@@ -6,7 +6,6 @@ import java.util.Set;
 import bank.Account;
 import bank.InactiveException;
 import bank.OverdrawException;
-import bank.client.driver.ClientHandler;
 import bank.driver.socket.BankRequestData;
 import bank.driver.socket.BankRequestData.BankRequestType;
 import bank.driver.socket.Request;
@@ -14,7 +13,12 @@ import bank.driver.socket.Request.RequestType;
 import bank.driver.socket.TransferData;
 
 public class ClientBank implements bank.Bank {
-    private ClientHandler clientHandler = new SocketHandler();    
+    private ClientHandler clientHandler;    
+
+    public ClientBank(ClientHandler clientHandler) {
+        super();
+        this.clientHandler = clientHandler;
+    }
 
     @Override
     public synchronized String createAccount(String owner) throws IOException {
