@@ -15,9 +15,9 @@ public class ClientAccount implements Account {
     
     private String number;
     
-    public ClientAccount(String number, ClientHandler socketHandler) {
+    public ClientAccount(String number, ClientHandler clientHandler) {
         this.number = number;
-        this.clientHandler = socketHandler;
+        this.clientHandler = clientHandler;
     }
 
     @Override

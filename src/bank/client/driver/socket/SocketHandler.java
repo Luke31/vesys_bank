@@ -22,12 +22,8 @@ public class SocketHandler implements ClientHandler {
         
         return socket_obj;
     }
-    
-    /* (non-Javadoc)
-     * @see bank.client.driver.socket.ClientHandler#getOutputStream()
-     */
-    @Override
-    public ObjectOutputStream getOutputStream() throws IOException {
+
+    private ObjectOutputStream getOutputStream() throws IOException {
         if (out_obj == null) {
             Socket socket = getSocket();
             out_obj = new ObjectOutputStream(socket.getOutputStream());
@@ -35,12 +31,8 @@ public class SocketHandler implements ClientHandler {
         
         return out_obj;
     }
-    
-    /* (non-Javadoc)
-     * @see bank.client.driver.socket.ClientHandler#getInputStream()
-     */
-    @Override
-    public ObjectInputStream getInputStream() throws IOException {
+
+    private ObjectInputStream getInputStream() throws IOException {
         if (in_obj == null) {
             Socket socket = getSocket();
             in_obj = new ObjectInputStream(socket.getInputStream());
