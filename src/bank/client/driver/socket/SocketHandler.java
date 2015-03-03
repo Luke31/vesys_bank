@@ -5,11 +5,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import bank.client.driver.ClientHandler;
 import bank.driver.socket.Request;
 import bank.driver.socket.Request.RequestType;
 import bank.server.BankServer;
 
-public class SocketHandler {
+public class SocketHandler implements ClientHandler {
     private Socket socket_obj = null;
     private ObjectOutputStream out_obj = null;
     private ObjectInputStream in_obj = null;
@@ -22,6 +23,10 @@ public class SocketHandler {
         return socket_obj;
     }
     
+    /* (non-Javadoc)
+     * @see bank.client.driver.socket.ClientHandler#getOutputStream()
+     */
+    @Override
     public ObjectOutputStream getOutputStream() throws IOException {
         if (out_obj == null) {
             Socket socket = getSocket();
@@ -31,6 +36,10 @@ public class SocketHandler {
         return out_obj;
     }
     
+    /* (non-Javadoc)
+     * @see bank.client.driver.socket.ClientHandler#getInputStream()
+     */
+    @Override
     public ObjectInputStream getInputStream() throws IOException {
         if (in_obj == null) {
             Socket socket = getSocket();
@@ -40,6 +49,10 @@ public class SocketHandler {
         return in_obj;
     }
     
+    /* (non-Javadoc)
+     * @see bank.client.driver.socket.ClientHandler#sendRequest(bank.driver.socket.Request.RequestType, java.lang.Object)
+     */
+    @Override
     public Request sendRequest (RequestType type, Object data) throws IOException {
         ObjectOutputStream out = getOutputStream();
         
