@@ -15,11 +15,6 @@ public class SocketServerBankDriver extends ServerBankDriver {
     private ObjectInputStream in;
     private ObjectOutputStream out;
 	
-	
-	public SocketServerBankDriver(){
-	    super(); //Create ServerDriver with BankImpl and ServerRequestHandler
-	}
-	
 	@Override
 	public void startServer(String[] args) throws IOException{	    
 	    try {
