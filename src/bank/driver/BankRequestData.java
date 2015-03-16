@@ -11,7 +11,6 @@ public class BankRequestData implements Serializable {
         CreateAccount, 
         CloseAccount,
         GetAccountNumbers,
-        GetAccount,
         Transfer,
     }
     

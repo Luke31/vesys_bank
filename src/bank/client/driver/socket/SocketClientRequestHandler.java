@@ -64,7 +64,7 @@ public class SocketClientRequestHandler implements ClientRequestHandler {
         try {
             ret = (Request)in.readObject(); //Get response  
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new RuntimeException();
         } 
         
         return ret;

@@ -34,7 +34,7 @@ public class BankImpl implements bank.Bank {
 
 	@Override
 	public boolean closeAccount(String number) throws IOException {
-		Account acc = accounts.get(number);
+	    AccountImpl acc = accounts.get(number);
 		if(acc != null){
 			return acc.close();
 		} else {		    
@@ -51,7 +51,7 @@ public class BankImpl implements bank.Bank {
 	public synchronized void transfer(bank.Account from, bank.Account to, double amount) throws IOException, InactiveException,
 	        IllegalArgumentException, OverdrawException {
 		from.withdraw(amount);
-		to.deposit(amount);
+		to.deposit(amount); // XXX falsch, denn to könnte inaktiv sein, dann wird zwar eine InactiveException geworfen, aber auf dem Konto from ist der Betrag bereits belastet worden.
 	}
 
 }

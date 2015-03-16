@@ -7,11 +7,13 @@ import bank.Account;
 import bank.InactiveException;
 import bank.OverdrawException;
 import bank.client.driver.ClientRequestHandler;
+import bank.driver.AccountRequestData;
+import bank.driver.AccountRequestData.AccountRequestType;
 import bank.driver.BankRequestData;
-import bank.driver.Request;
-import bank.driver.TransferData;
 import bank.driver.BankRequestData.BankRequestType;
+import bank.driver.Request;
 import bank.driver.Request.RequestType;
+import bank.driver.TransferData;
 
 public class ClientBank implements bank.Bank {
     private ClientRequestHandler clientRequestHandler;    
@@ -39,11 +41,15 @@ public class ClientBank implements bank.Bank {
     
     @Override
     public Account getAccount(String number) throws IOException {
-        Account servAcc = (Account)clientRequestHandler.sendRequest (RequestType.Bank, new BankRequestData(BankRequestType.GetAccount, number)).getData();
-        if (servAcc == null)
-            return null;
-        else
-            return new ClientAccount(servAcc.getNumber(), clientRequestHandler);
+        Request answer = clientRequestHandler.sendRequest (RequestType.Account, new AccountRequestData(AccountRequestType.A_GetBalance, number));
+        if(answer.getType().equals(RequestType.ExceptionStatus)){
+            Exception e = (Exception)answer.getData();
+            if(e instanceof NullPointerException)
+                return null; //Account existiert nicht
+            else
+                throw new RuntimeException(); 
+        }else
+            return new ClientAccount(number, clientRequestHandler); //Account existiert
     }
 
     @Override
@@ -58,6 +64,8 @@ public class ClientBank implements bank.Bank {
                 throw (InactiveException)e;
             else if(e instanceof OverdrawException)
                 throw (OverdrawException)e;
+            else
+                throw new RuntimeException();
         };
     }
 }

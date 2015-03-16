@@ -55,9 +55,6 @@ public class ServerRequestHandler {
                         
                     case GetAccountNumbers:
                         return bank.getAccountNumbers();
-                        
-                    case GetAccount:
-                        return bank.getAccount((String)bData.getData());
                     
                     case Transfer:
                         TransferData data = (TransferData)bData.getData();
@@ -82,8 +79,6 @@ public class ServerRequestHandler {
                         acc.withdraw(aData.getData()); break;
                     case A_GetBalance:
                         return acc.getBalance();
-                    case A_Close:
-                        return acc.close();
                     default:
                         break;
                 }

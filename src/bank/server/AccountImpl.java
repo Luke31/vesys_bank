@@ -1,14 +1,11 @@
 package bank.server;
 
 import java.io.IOException;
-import java.io.Serializable;
 
 import bank.InactiveException;
 import bank.OverdrawException;
 
-public class AccountImpl implements bank.Account, Serializable{
-
-    private static final long serialVersionUID = 4786217009595468329L;
+public class AccountImpl implements bank.Account{
     
     private String number;
 	private String owner;
@@ -62,7 +59,6 @@ public class AccountImpl implements bank.Account, Serializable{
 			balance -= amount;				
 	}
 
-	@Override
 	public synchronized boolean close() throws IOException {
 		if(isActive() && balance == 0){
 			active = false;

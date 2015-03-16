@@ -23,8 +23,7 @@ public class ClientAccount implements Account {
 
     @Override
     public synchronized String getNumber() throws IOException {
-        Request answer = clientRequestHandler.sendRequest (RequestType.Account, new AccountRequestData(AccountRequestType.A_GetNumber, number));
-        return (String)answer.getData(); 
+        return number;
     }
 
     @Override
@@ -46,6 +45,8 @@ public class ClientAccount implements Account {
                 throw (IllegalArgumentException)e;
             else if(e instanceof InactiveException)
                 throw (InactiveException)e;
+            else if(e instanceof NullPointerException)
+                throw (NullPointerException)e;
         };
     }
 
@@ -68,9 +69,9 @@ public class ClientAccount implements Account {
         return (double)clientRequestHandler.sendRequest (RequestType.Account, new AccountRequestData(AccountRequestType.A_GetBalance, number)).getData();
     }
 
-    @Override
-    public synchronized boolean close() throws IOException {
-        return (boolean)clientRequestHandler.sendRequest (RequestType.Account, new AccountRequestData(AccountRequestType.A_Close, number)).getData();
-    }
+//    @Override
+//    public synchronized boolean close() throws IOException {
+//        return (boolean)clientRequestHandler.sendRequest (RequestType.Account, new AccountRequestData(AccountRequestType.A_Close, number)).getData();
+//    }
 
 }

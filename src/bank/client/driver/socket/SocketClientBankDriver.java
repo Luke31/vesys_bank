@@ -29,6 +29,7 @@ public class SocketClientBankDriver implements bank.client.driver.ClientBankDriv
 	@Override
 	public void disconnect() {
 		bank = null;
+		 // XXX hier sollte noch der Socket geschlossen werden, z.B. durch aufruf einer Methode bank.close();
 		System.out.println("socket disconnected...");
 	}
 

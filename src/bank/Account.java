@@ -89,11 +89,4 @@ public interface Account {
 	 *           if a remoting or communication problem occurs
 	 */
 	double getBalance() throws IOException;
-	
-	/**
-	 * Closes an account if balance is zero
-	 * @return Closing was successful
-	 * @throws IOException
-	 */
-	boolean close() throws IOException;
 }

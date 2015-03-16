@@ -13,7 +13,6 @@ public class AccountRequestData implements Serializable {
         A_Deposit,
         A_Withdraw,
         A_GetBalance,
-        A_Close;
     }
     
     private AccountRequestType type;

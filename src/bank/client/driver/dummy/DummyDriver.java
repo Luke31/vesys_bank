@@ -5,7 +5,6 @@
 
 package bank.client.driver.dummy;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -112,12 +111,6 @@ public class DummyDriver implements ClientBankDriver {
 		@Override
 		public double getBalance() {
 			return balance;
-		}
-
-		@Override
-		public boolean close() throws IOException {
-			active = false;
-			return true;
 		}
 	}
 
