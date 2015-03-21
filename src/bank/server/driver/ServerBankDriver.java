@@ -18,6 +18,10 @@ public abstract class ServerBankDriver {
     public ServerRequestHandler getRequestHandler() {
         return requestHandler;
     }
+    
+    public Bank getBank(){
+        return bank;
+    }
 
     public abstract void startServer(String[] args) throws IOException;
 
