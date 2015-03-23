@@ -32,8 +32,7 @@ public class SoapBank implements bank.Bank {
 
     @Override
     public boolean closeAccount(String number) throws IOException {
-        // TODO Auto-generated method stub
-        return false;
+        return servicePort.closeAccount(number);
     }
 
     @Override
