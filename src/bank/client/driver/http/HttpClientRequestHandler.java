@@ -13,19 +13,17 @@ import bank.driver.Request.RequestType;
 
 public class HttpClientRequestHandler implements ClientRequestHandler {
     
-    private String host;
-    private int port;
+    private URL url;
     
     public HttpClientRequestHandler(String host, int port) throws UnknownHostException, IOException {
-        this.host = host;
-        this.port = port;
+        url = new URL ("http", host, port, "/request");
     }
     
     @Override
     public Request sendRequest(RequestType type, Object data) throws IOException {
-        URL url = new URL ("http", host, port, "/request");
         URLConnection connection = url.openConnection();    
         connection.setDoOutput(true);
+        connection.setRequestProperty("transfer-coding","chunked");
         
         ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
         out.writeObject(new Request (type, data)); //Send request to Server

@@ -35,6 +35,7 @@ public class HttpServerBankDriver extends ServerBankDriver {
         // content-type: text/plain
         @Override
         public void handle(HttpExchange exchange) throws IOException {   
+            
             ObjectInputStream in = null;
             ObjectOutputStream out = null;
             
@@ -48,7 +49,7 @@ public class HttpServerBankDriver extends ServerBankDriver {
                     response = 400;
                 }
                 
-                exchange.sendResponseHeaders(response, sizeof(answer));
+                exchange.sendResponseHeaders(response, 0); //0 = chunked Alt: sizeof(answer)
                 out = new ObjectOutputStream(exchange.getResponseBody());
                 out.writeObject(answer);
                 out.flush();
