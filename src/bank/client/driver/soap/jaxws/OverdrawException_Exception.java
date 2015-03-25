@@ -16,6 +16,11 @@ public class OverdrawException_Exception
 {
 
     /**
+     * 
+     */
+    private static final long serialVersionUID = -8485549061855592292L;
+    
+    /**
      * Java type that goes as soapenv:Fault detail element.
      * 
      */

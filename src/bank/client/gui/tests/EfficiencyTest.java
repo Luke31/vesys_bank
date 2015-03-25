@@ -13,7 +13,6 @@ import bank.Bank;
 
 public class EfficiencyTest implements BankTest {
 
-	// TODO to be defined over construcotr
 	// final static int NUMBER_OF_EFF_TESTS = 1000000; // CONPR
 	final static int NUMBER_OF_EFF_TESTS = 1000; // DS
 

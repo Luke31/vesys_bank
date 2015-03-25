@@ -8,6 +8,6 @@
 </listAttribute>
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="bank.client.Client"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="bank.client.driver.soap.SoapClientBankDriver localhost 1111"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="bank.client.driver.soap.SoapClientBankDriver localhost 1111 hs"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="bank"/>
 </launchConfiguration>

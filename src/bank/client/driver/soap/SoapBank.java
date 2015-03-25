@@ -9,6 +9,8 @@ import bank.Account;
 import bank.InactiveException;
 import bank.OverdrawException;
 import bank.client.driver.soap.jaxws.IOException_Exception;
+import bank.client.driver.soap.jaxws.InactiveException_Exception;
+import bank.client.driver.soap.jaxws.OverdrawException_Exception;
 import bank.client.driver.soap.jaxws.SoapBankServiceImpl;
 
 public class SoapBank implements bank.Bank {
@@ -25,8 +27,7 @@ public class SoapBank implements bank.Bank {
         try {
             return servicePort.createAccount(owner);
         } catch (IOException_Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new IOException(e);
         }
     }
 
@@ -38,11 +39,10 @@ public class SoapBank implements bank.Bank {
     @Override
     public Set<String> getAccountNumbers() throws IOException {
         try {
-            List<String> list = servicePort.getAccountNumbers(); //JAXB kennt Set<String> nicht unds macht daraus eine Liste
+            List<String> list = servicePort.getAccountNumbers(); //JAXB kennt Set<String> nicht und macht daraus eine Liste
             return list.stream().collect(Collectors.toSet()); //Liste wieder zu Set konvertieren
         } catch (IOException_Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new IOException(e);
         }
     }
 
@@ -52,8 +52,7 @@ public class SoapBank implements bank.Bank {
             String owner = servicePort.getOwner(number);
             return new SoapAccount(number, owner, servicePort);
         } catch (IOException_Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new IOException(e);
         }
     }
 
@@ -61,8 +60,15 @@ public class SoapBank implements bank.Bank {
     public void transfer(Account a, Account b, double amount)
             throws IOException, IllegalArgumentException, OverdrawException,
             InactiveException {
-        // TODO Auto-generated method stub
-        
+        try {
+            servicePort.transfer(a.getNumber(), b.getNumber(), amount);
+        } catch (IOException_Exception e) {
+            throw new IOException(e);
+        } catch (InactiveException_Exception e) {
+            throw new InactiveException(e);
+        } catch (OverdrawException_Exception e) {
+            throw new OverdrawException(e);
+        }
     }
 
 }

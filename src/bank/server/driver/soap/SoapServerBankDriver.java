@@ -11,13 +11,10 @@ public class SoapServerBankDriver extends ServerBankDriver {
     
     @Override
     public void startServer(String[] args) throws IOException{      
-        int port = Integer.parseInt(args[0]);
-        String path = args[1];
-        
         //Import wenn Server läuft, von Projekt-ordner aus:
         //wsimport -keep -p bank.client.driver.soap.jaxws -d bin -s src http://localhost:1111/hs?wsdl 
 
-        String url = "http://127.0.0.1:" + port + "/" + path;
+        String url = "http://" + args[0] + ":" + Integer.parseInt(args[1]) + "/" + args[2];
         
         Endpoint endpoint = Endpoint.create(new SoapBankServiceImpl(this.getBank())); 
         endpoint.setExecutor(Executors.newFixedThreadPool(10)); 

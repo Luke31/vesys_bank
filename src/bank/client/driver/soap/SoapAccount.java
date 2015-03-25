@@ -6,6 +6,8 @@ import bank.Account;
 import bank.InactiveException;
 import bank.OverdrawException;
 import bank.client.driver.soap.jaxws.IOException_Exception;
+import bank.client.driver.soap.jaxws.InactiveException_Exception;
+import bank.client.driver.soap.jaxws.OverdrawException_Exception;
 import bank.client.driver.soap.jaxws.SoapBankServiceImpl;
 
 public class SoapAccount implements Account {
@@ -34,21 +36,38 @@ public class SoapAccount implements Account {
 
     @Override
     public boolean isActive() throws IOException {
-        // TODO Auto-generated method stub
-        return false;
+        try {
+            return servicePort.isActive(number);
+        } catch (IOException_Exception e) {
+            throw new IOException(e);
+        }
     }
 
     @Override
     public void deposit(double amount) throws IOException,
             IllegalArgumentException, InactiveException {
-        // TODO Auto-generated method stub
+        try {
+            servicePort.deposit(number,  amount);
+        } catch (IOException_Exception e) {
+            throw new IOException(e);
+        } catch (InactiveException_Exception e) {
+            throw new InactiveException(e);
+        }
 
     }
 
     @Override
     public void withdraw(double amount) throws IOException,
             IllegalArgumentException, OverdrawException, InactiveException {
-        // TODO Auto-generated method stub
+        try {
+            servicePort.withdraw(number, amount);
+        } catch (IOException_Exception e) {
+            throw new IOException(e);
+        } catch (InactiveException_Exception e) {
+            throw new InactiveException(e);
+        } catch (OverdrawException_Exception e) {
+            throw new OverdrawException(e);
+        }
 
     }
 
@@ -57,8 +76,7 @@ public class SoapAccount implements Account {
         try {
             return servicePort.getBalance(number);
         } catch (IOException_Exception e) {
-            e.printStackTrace();
-            return 0;
+            throw new IOException(e);
         }
     }
 

@@ -458,7 +458,6 @@ public class BankGUI extends JFrame {
 		try {
 			driver.disconnect();
 		} catch (IOException e) {
-			// TODO what to do with IOException upon disconnection
 			e.printStackTrace();
 		}
 		System.exit(0);

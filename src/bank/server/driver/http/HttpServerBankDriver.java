@@ -1,6 +1,5 @@
 package bank.server.driver.http;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -67,7 +66,7 @@ public class HttpServerBankDriver extends ServerBankDriver {
         }
     }
     
-    private int sizeof(Object obj) throws IOException {
+    /*private int sizeof(Object obj) throws IOException {
         ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteOutputStream);
 
@@ -76,6 +75,6 @@ public class HttpServerBankDriver extends ServerBankDriver {
         objectOutputStream.close();
 
         return byteOutputStream.toByteArray().length;
-    }
+    }*/
 }
     

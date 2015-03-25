@@ -1,6 +1,7 @@
 package bank.client.driver.soap;
 
 import java.io.IOException;
+import java.net.URL;
 import java.net.UnknownHostException;
 
 import bank.Bank;
@@ -8,15 +9,13 @@ import bank.client.driver.soap.jaxws.SoapBankServiceImplService;
 
 public class SoapClientBankDriver implements bank.client.driver.ClientBankDriver {
     private Bank bank = null;
-    private int port;
-    private String host;
+    private URL url = null;
     
     @Override
     public void connect(String[] args) throws UnknownHostException, IOException {
-        this.host = args[0];
-        this.port = Integer.parseInt(args[1]);
+        url = new URL("http://" + args[0] + ":" + Integer.parseInt(args[1]) + "/" + args[2] + "?wsdl");
         
-        SoapBankServiceImplService service = new SoapBankServiceImplService(); //TODO: Hier sollte host und port übergeben werden
+        SoapBankServiceImplService service = new SoapBankServiceImplService(url);
         bank = new SoapBank(service.getSoapBankServiceImplPort());
         
         System.out.println("soap connected...");

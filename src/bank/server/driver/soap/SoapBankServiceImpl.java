@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 
-import bank.Account;
 import bank.Bank;
 import bank.InactiveException;
 import bank.OverdrawException;
@@ -27,12 +26,10 @@ public class SoapBankServiceImpl implements SoapBankService {
     }
 
     @Override
-    public boolean closeAccount(String number) {
-        // TODO Auto-generated method stub
-        return false;
+    public boolean closeAccount(String number) throws IOException {
+        return bank.closeAccount(number);
     }
     
-    @SuppressWarnings("unchecked")
     @Override
     public Set<String> getAccountNumbers() throws IOException {
         return bank.getAccountNumbers();
@@ -42,42 +39,35 @@ public class SoapBankServiceImpl implements SoapBankService {
     public void transfer(String aNumber, String bNumber, double amount)
             throws IOException, IllegalArgumentException, OverdrawException,
             InactiveException {
-        // TODO Auto-generated method stub
-        
+        bank.transfer (bank.getAccount(aNumber), bank.getAccount(bNumber), amount);
     }
     
     //Account
-    Account acc;
     @Override
     public String getOwner(@WebParam(name = "number") String number) throws IOException{
-        acc = bank.getAccount(number);
-        return acc.getOwner();
+        return bank.getAccount(number).getOwner();
     }
     
     @Override
     public boolean isActive(String number) throws IOException {
-        // TODO Auto-generated method stub
-        return false;
+        return bank.getAccount(number).isActive();
     }
 
     @Override
     public void deposit(String number, double amount) throws IOException,
             IllegalArgumentException, InactiveException {
-        // TODO Auto-generated method stub
-        
+        bank.getAccount(number).deposit(amount);
     }
 
     @Override
     public void withdraw(String number, double amount) throws IOException,
             IllegalArgumentException, OverdrawException, InactiveException {
-        // TODO Auto-generated method stub
-        
+        bank.getAccount(number).withdraw(amount);        
     }
 
     @Override
     public double getBalance(String number) throws IOException {
-        acc = bank.getAccount(number);
-        return acc.getBalance();
+        return bank.getAccount(number).getBalance();
     }
 
 }
