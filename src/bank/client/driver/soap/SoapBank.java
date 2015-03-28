@@ -50,7 +50,10 @@ public class SoapBank implements bank.Bank {
     public Account getAccount(String number) throws IOException {
         try {
             String owner = servicePort.getOwner(number);
-            return new SoapAccount(number, owner, servicePort);
+            if(owner != null)
+                return new SoapAccount(number, owner, servicePort);
+            else
+                return null;
         } catch (IOException_Exception e) {
             throw new IOException(e);
         }

@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 
+import bank.Account;
 import bank.Bank;
 import bank.InactiveException;
 import bank.OverdrawException;
@@ -45,7 +46,11 @@ public class SoapBankServiceImpl implements SoapBankService {
     //Account
     @Override
     public String getOwner(@WebParam(name = "number") String number) throws IOException{
-        return bank.getAccount(number).getOwner();
+        Account acc = bank.getAccount(number);
+        if(acc != null)
+            return bank.getAccount(number).getOwner();
+        else
+            return null;
     }
     
     @Override
