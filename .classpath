@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src" />
-	<classpathentry kind="con"
-		path="org.eclipse.jdt.launching.JRE_CONTAINER" />
-	<classpathentry kind="output" path="bin" />
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib_jersey/aopalliance-repackaged-2.4.0-b10.jar"/>
+	<classpathentry kind="lib" path="lib_jersey/grizzly-framework-2.3.16.jar"/>
+	<classpathentry kind="lib" path="lib_jersey/grizzly-http-2.3.16.jar"/>
+	<classpathentry kind="lib" path="lib_jersey/grizzly-http-server-2.3.16.jar"/>
+	<classpathentry kind="lib" path="lib_jersey/hk2-api-2.4.0-b10.jar"/>
+	<classpathentry kind="lib" path="lib_jersey/hk2-locator-2.4.0-b10.jar"/>
+	<classpathentry kind="lib" path="lib_jersey/hk2-utils-2.4.0-b10.jar"/>
+	<classpathentry kind="lib" path="lib_jersey/javassist-3.18.1-GA.jar"/>
+	<classpathentry kind="lib" path="lib_jersey/javax.annotation-api-1.2.jar"/>
+	<classpathentry kind="lib" path="lib_jersey/javax.inject-2.4.0-b10.jar"/>
+	<classpathentry kind="lib" path="lib_jersey/javax.ws.rs-api-2.0.1.jar"/>
+	<classpathentry kind="lib" path="lib_jersey/jersey-client-2.17.jar"/>
+	<classpathentry kind="lib" path="lib_jersey/jersey-common-2.17.jar"/>
+	<classpathentry kind="lib" path="lib_jersey/jersey-container-grizzly2-http-2.17.jar"/>
+	<classpathentry kind="lib" path="lib_jersey/jersey-entity-filtering-2.17.jar"/>
+	<classpathentry kind="lib" path="lib_jersey/jersey-guava-2.17.jar"/>
+	<classpathentry kind="lib" path="lib_jersey/jersey-media-jaxb-2.17.jar"/>
+	<classpathentry kind="lib" path="lib_jersey/jersey-media-json-jackson-2.17.jar"/>
+	<classpathentry kind="lib" path="lib_jersey/jersey-server-2.17.jar"/>
+	<classpathentry kind="lib" path="lib_jersey/osgi-resource-locator-1.0.1.jar"/>
+	<classpathentry kind="lib" path="lib_jersey/validation-api-1.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="lib_jackson/jackson-annotations-2.3.2.jar"/>
+	<classpathentry kind="lib" path="lib_jackson/jackson-core-2.3.2.jar"/>
+	<classpathentry kind="lib" path="lib_jackson/jackson-databind-2.3.2.jar"/>
+	<classpathentry kind="lib" path="lib_jackson/jackson-jaxrs-base-2.3.2.jar"/>
+	<classpathentry kind="lib" path="lib_jackson/jackson-jaxrs-json-provider-2.3.2.jar"/>
+	<classpathentry kind="lib" path="lib_jackson/jackson-module-jaxb-annotations-2.3.2.jar"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>
