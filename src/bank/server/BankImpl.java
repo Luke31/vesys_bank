@@ -6,10 +6,13 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import bank.Account;
 import bank.InactiveException;
 import bank.OverdrawException;
 
+@XmlRootElement
 public class BankImpl implements bank.Bank {
 
 	private final Map<String, AccountImpl> accounts = new ConcurrentHashMap<>(); //Concurrent: Thread-safe

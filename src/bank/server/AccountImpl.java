@@ -2,9 +2,12 @@ package bank.server;
 
 import java.io.IOException;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import bank.InactiveException;
 import bank.OverdrawException;
 
+@XmlRootElement
 public class AccountImpl implements bank.Account{
     
     private String number;

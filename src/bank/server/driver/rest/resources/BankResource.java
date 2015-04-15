@@ -1,16 +1,20 @@
 package bank.server.driver.rest.resources;
 
 import java.io.IOException;
-import java.util.Set;
+import java.net.URI;
 
 import javax.inject.Singleton;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 import bank.Account;
 import bank.Bank;
@@ -18,17 +22,20 @@ import bank.Bank;
 @Singleton
 @Path("/bank")
 public class BankResource {
-    private Bank bank;
+    private static Bank bank;
     
-    public BankResource(Bank bank) {
-        this.bank = bank;
+    public static void setBank(Bank bank){
+        BankResource.bank = bank;
     }
     
     @POST
-    @Produces("text/plain")
-    public String createAccount(String owner) {
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response createAccount(@Context UriInfo uriInfo, String owner) {
         try {
-            return bank.createAccount(owner);
+            String number = bank.createAccount(owner);
+            URI location = uriInfo.getAbsolutePathBuilder().path("" + number).build();
+            return Response.created(location).entity(number).build();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -44,8 +51,14 @@ public class BankResource {
     }
 
     @GET
-    public Set<String> getAccountNumbers() {
-        // TODO Auto-generated method stub
+    @Produces({ MediaType.APPLICATION_JSON })
+    public String[] getAccountNumbers() {
+        try {
+            String[] d = bank.getAccountNumbers().toArray(new String[]{});
+            return d;
+        } catch (IOException e) {
+            //Ignore
+        }
         return null;
     }
 

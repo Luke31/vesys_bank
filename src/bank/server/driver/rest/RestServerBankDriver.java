@@ -8,6 +8,7 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import bank.server.driver.ServerBankDriver;
+import bank.server.driver.rest.resources.BankResource;
 
 
 public class RestServerBankDriver extends ServerBankDriver {
@@ -15,7 +16,8 @@ public class RestServerBankDriver extends ServerBankDriver {
     public void startServer(String[] args) throws IOException{      
 
         final String baseUri = "http://" + args[0] + ":" + Integer.parseInt(args[1]);
-
+        
+        BankResource.setBank(this.getBank());
         final ResourceConfig rc = new ResourceConfig().packages("bank.server.driver.rest.resources");
         
         System.out.println("Starting grizzly...");
