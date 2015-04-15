@@ -2,12 +2,13 @@ package bank.server;
 
 import java.io.IOException;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import bank.InactiveException;
 import bank.OverdrawException;
 
-@XmlRootElement
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_EMPTY)
 public class AccountImpl implements bank.Account{
     
     private String number;
@@ -15,6 +16,10 @@ public class AccountImpl implements bank.Account{
 	private double balance = 0;
 	private boolean active = true;
 
+	public AccountImpl(){
+	    
+	}
+	
 	public AccountImpl(String owner, String number) {
 		this.owner = owner;
 		this.number = number;

@@ -17,6 +17,9 @@ import bank.Account;
 import bank.Bank;
 import bank.InactiveException;
 import bank.OverdrawException;
+import bank.client.driver.soap.SoapAccount;
+import bank.client.driver.soap.jaxws.IOException_Exception;
+import bank.server.AccountImpl;
 
 public class RestBank implements Bank {
 
@@ -52,8 +55,11 @@ public class RestBank implements Bank {
 
     @Override
     public Account getAccount(String number) throws IOException {
-        
-        return null;
+        AccountImpl acc = r.path("/"+number).request().accept(MediaType.APPLICATION_JSON).get(AccountImpl.class);
+        if(acc != null)
+            return acc;
+        else
+            return null;
     }
 
     @Override
