@@ -24,7 +24,6 @@ public class RestClientBankDriver implements bank.client.driver.ClientBankDriver
         }
         
         Client c = ClientBuilder.newClient();
-        //c.register(XStreamProvider.class);
         WebTarget r = c.target(uriBank);
         
         bank = new RestBank(r);

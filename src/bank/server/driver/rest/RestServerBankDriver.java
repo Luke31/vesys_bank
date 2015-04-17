@@ -10,7 +10,6 @@ import org.glassfish.jersey.server.ResourceConfig;
 import bank.server.driver.ServerBankDriver;
 import bank.server.driver.rest.resources.BankResource;
 
-
 public class RestServerBankDriver extends ServerBankDriver {
     @Override
     public void startServer(String[] args) throws IOException{      
