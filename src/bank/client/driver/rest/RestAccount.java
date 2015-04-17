@@ -92,7 +92,8 @@ public class RestAccount implements Account {
 
     @Override
     public double getBalance() throws IOException {
-        AccountImpl acc = r.path("/"+ number).request().accept(MediaType.APPLICATION_JSON).get(AccountImpl.class);
+        AccountImpl acc = r.path("/"+ number).request().accept(MediaType.APPLICATION_JSON)
+                .get(AccountImpl.class);
         return acc.getBalance();
     }
     

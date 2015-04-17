@@ -52,7 +52,8 @@ public class BankResource {
         if (rb != null) //Cached entity found!
             return rb.cacheControl(cacheControl).tag(etag).build(); //HTTP/1.1 304 Not Modified
         else //No cache found -> Return Array
-            return Response.ok(d).cacheControl(cacheControl).tag(etag).build(); //HTTP/1.1 200 OK (with entity)
+            return Response.ok(d).cacheControl(cacheControl).tag(etag).build(); 
+            //HTTP/1.1 200 OK (with entity)
     }
     
     @POST
@@ -77,7 +78,8 @@ public class BankResource {
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Path("{number}")
-    public Response updateBalance(@PathParam("number") String number, @FormParam("newBalance")  double newBalance) throws IOException,
+    public Response updateBalance(@PathParam("number") String number, @FormParam("newBalance")  
+    double newBalance) throws IOException,
     IllegalArgumentException, InactiveException, OverdrawException{
         Account acc = bank.getAccount(number);
         if(acc == null)

@@ -18,7 +18,8 @@ public class RestClientBankDriver implements bank.client.driver.ClientBankDriver
     @Override
     public void connect(String[] args) throws UnknownHostException, IOException {
         try {
-            uriBank = new URI("http://" + args[0] + ":" + Integer.parseInt(args[1]) + "/bank/accounts");
+            uriBank = new URI("http://" + args[0] + ":" + 
+                    Integer.parseInt(args[1]) + "/bank/accounts");
         } catch (NumberFormatException | URISyntaxException e) {
             e.printStackTrace();
         }

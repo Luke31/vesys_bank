@@ -44,7 +44,8 @@ public class RestBank implements Bank {
     public boolean closeAccount(String number) throws IOException {
         if(number == null || number.isEmpty())
             throw new IllegalArgumentException();
-        Response res = r.path("/"+ number).request().accept(MediaType.APPLICATION_JSON).delete();
+        Response res = r.path("/"+ number).request()
+                .accept(MediaType.APPLICATION_JSON).delete();
         if(res.getStatus() == 200)
             return true;
         else if(res.getStatus() == Status.NOT_MODIFIED.getStatusCode()) //Already inactive
@@ -57,7 +58,8 @@ public class RestBank implements Bank {
     private EntityTag etag = null;
     @Override
     public Set<String> getAccountNumbers() throws IOException {
-        Response res = r.request().header("If-None-Match", etag).accept(MediaType.APPLICATION_JSON).get(); 
+        Response res = r.request().header("If-None-Match", etag)
+                .accept(MediaType.APPLICATION_JSON).get(); 
         if(res.getStatus() != Status.NOT_MODIFIED.getStatusCode()){
             accs = res.readEntity(String[].class);
             etag = res.getEntityTag();
@@ -69,7 +71,8 @@ public class RestBank implements Bank {
     public Account getAccount(String number) throws IOException {
         if(number == null || number.isEmpty())
             return null;
-        AccountImpl acc = r.path("/"+ number).request().accept(MediaType.APPLICATION_JSON).get(AccountImpl.class);
+        AccountImpl acc = r.path("/"+ number).request()
+                .accept(MediaType.APPLICATION_JSON).get(AccountImpl.class);
         if(acc != null)
             return new RestAccount(acc.getNumber(), acc.getOwner(), r);
         return null;
