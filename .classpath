@@ -29,5 +29,12 @@
 	<classpathentry kind="lib" path="lib_jackson/jackson-jaxrs-base-2.3.2.jar"/>
 	<classpathentry kind="lib" path="lib_jackson/jackson-jaxrs-json-provider-2.3.2.jar"/>
 	<classpathentry kind="lib" path="lib_jackson/jackson-module-jaxb-annotations-2.3.2.jar"/>
+	<classpathentry kind="lib" path="lib_jms/hornetq-commons.jar"/>
+	<classpathentry kind="lib" path="lib_jms/hornetq-core-client.jar"/>
+	<classpathentry kind="lib" path="lib_jms/hornetq-jms-client.jar"/>
+	<classpathentry kind="lib" path="lib_jms/jboss-jms-api.jar"/>
+	<classpathentry kind="lib" path="lib_jms/jnp-client.jar"/>
+	<classpathentry kind="lib" path="lib_jms/netty.jar"/>
+	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

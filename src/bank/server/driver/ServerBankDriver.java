@@ -1,7 +1,5 @@
 package bank.server.driver;
 
-import java.io.IOException;
-
 import bank.Bank;
 import bank.server.BankImpl;
 import bank.server.ServerRequestHandler;
@@ -23,6 +21,6 @@ public abstract class ServerBankDriver {
         return bank;
     }
 
-    public abstract void startServer(String[] args) throws IOException;
+    public abstract void startServer(String[] args) throws Exception;
 
 }

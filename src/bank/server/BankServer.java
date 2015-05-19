@@ -35,7 +35,7 @@ public class BankServer {
 	    
         try {
             server.startServer(serverArgs);
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Problem while starting the server:");
             e.printStackTrace();
             System.exit(1);
