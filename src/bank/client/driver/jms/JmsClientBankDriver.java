@@ -11,7 +11,6 @@ import java.net.UnknownHostException;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSConsumer;
 import javax.jms.JMSContext;
-import javax.jms.JMSException;
 import javax.jms.JMSProducer;
 import javax.jms.Message;
 import javax.jms.Queue;
@@ -19,7 +18,6 @@ import javax.jms.TemporaryQueue;
 import javax.jms.Topic;
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import bank.Bank;
 import bank.client.ClientBank;
@@ -64,8 +62,7 @@ public class JmsClientBankDriver implements bank.client.driver.ClientBankDriver2
 	@Override
 	public void disconnect() {
 		bank = null;
-		 // XXX hier sollte noch der Socket geschlossen werden, z.B. durch aufruf einer Methode bank.close();
-		System.out.println("socket disconnected...");
+		System.out.println("JMS disconnected...");
 	}
 
 	@Override
@@ -78,7 +75,7 @@ public class JmsClientBankDriver implements bank.client.driver.ClientBankDriver2
     public void registerUpdateHandler(UpdateHandler handler) throws IOException {
         subscriber = context.createConsumer(topic); //Eingabe Queue
         
-        subscriber.setMessageListener((Message msg) -> {
+        subscriber.setMessageListener((Message msg) -> { //onMessage(Message msg)
             try {
                 handler.accountChanged(msg.getBody(String.class));
             } catch (Exception e) {
@@ -89,9 +86,12 @@ public class JmsClientBankDriver implements bank.client.driver.ClientBankDriver2
     
     class JmsClientRequestHandler implements ClientRequestHandler {
         @Override
-        public Request sendRequest (RequestType type, Object data) throws IOException {
+        public synchronized Request sendRequest (RequestType type, Object data) throws IOException { //synchronized -> Nicht mehrmals darauf zugreifen!
             sender.send(queue, new Request (type, data)); //Send request to Server
-            Request ret = receiver.receiveBody(Request.class); //Asynchron? - blockiert jedoch bis Message da
+            try {
+                Thread.sleep(100); //FIXME: Sollte nicht notwendig sein, da receiveBody blockiert - Jedoch ansonsten: Invalid concurrent session usage
+            } catch (InterruptedException e) {}
+            Request ret = receiver.receiveBody(Request.class); //Asynchron - blockiert jedoch bis Message in Temp-Queue
             
             return ret;
         }

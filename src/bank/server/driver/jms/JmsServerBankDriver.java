@@ -13,6 +13,7 @@ import javax.naming.InitialContext;
 import bank.driver.AccountRequestData;
 import bank.driver.BankRequestData;
 import bank.driver.Request;
+import bank.driver.TransferData;
 import bank.server.driver.ServerBankDriver;
 
 public class JmsServerBankDriver extends ServerBankDriver {
@@ -30,18 +31,23 @@ public class JmsServerBankDriver extends ServerBankDriver {
             JMSProducer publisher = context.createProducer(); //Ausgabe Topic
 
             while (true) {
-                Message request = consumer.receive(); //Load Request from Client - May not be too large!
-                Request answer = getRequestHandler().handleRequest(request.getBody(Request.class)); //Get ServerRequestHandler from parent-class
+                Message requestM = consumer.receive(); //Load Request from Client - May not be too large!
+                Request request = requestM.getBody(Request.class);
+                Request answer = getRequestHandler().handleRequest(request); //Get ServerRequestHandler from parent-class
                 
-                sender.send(request.getJMSReplyTo(), answer);
+                sender.send(requestM.getJMSReplyTo(), answer);
 
                 //Inform Publisher/Topic
-                if(Request.RequestType.Account.equals(answer.getType()))
-                    publisher.send(topic, ((AccountRequestData)answer.getData()).getAccountNumber());
-                if(Request.RequestType.Bank.equals(answer.getType()) && BankRequestData.BankRequestType.Transfer.equals(((BankRequestData)answer.getData()).getType())){
-                    //Todo aNum, bNum
-                    publisher.send(topic, ((AccountRequestData)answer.getData()).getAccountNumber());
-                    publisher.send(topic, ((AccountRequestData)answer.getData()).getAccountNumber());
+                if(Request.RequestType.Account.equals(request.getType()) && (AccountRequestData.AccountRequestType.A_Deposit.equals(((AccountRequestData)request.getData()).getType()) || AccountRequestData.AccountRequestType.A_Withdraw.equals(((AccountRequestData)request.getData()).getType())))
+                    publisher.send(topic, ((AccountRequestData)request.getData()).getAccountNumber());
+                else if(Request.RequestType.Bank.equals(request.getType()) && BankRequestData.BankRequestType.Transfer.equals(((BankRequestData)request.getData()).getType())){
+                    TransferData transferData = (TransferData)((BankRequestData)request.getData()).getData(); 
+                    
+                    publisher.send(topic, transferData.aNum);
+                    try {
+                        Thread.sleep(100); //FIXME: Sollte nicht notwendig sein - Jedoch ansonsten: Invalid concurrent session usage
+                    } catch (InterruptedException e) {}
+                    publisher.send(topic, transferData.bNum);
                 }
             }
         }
